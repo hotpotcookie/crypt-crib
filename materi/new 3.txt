@@ -1,0 +1,22 @@
+presequite
+-----------
+$ sudo apt-get install openssl apache2
+$ ifconfig
+$ nslookup [mydomain] / dig [mydomain]
+
+$ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout cookie.ssl.key -out cookie.ssl.crt
+$ sudo cp cookie.ssl.crt /etc/ssl/certs/
+$ sudo cp cookie.ssl.key /etc/ssl/private/
+$ nano /etc/apache2/sites-available/default-ssl.conf ## change cert and key path
+$ sudo a2ensite default-ssl.conf ## enable default ssl
+$ sudo a2enmod ssl ## enable ssl module
+$ sudo service apache2 reload + status
+$ netstat -ta
+
+access
+------
+https://[mydomain]
+Tools > Preferences > Privacy & Security > Security
+Certificates Section > View Certificates
+1. Servers
+2. Authorities

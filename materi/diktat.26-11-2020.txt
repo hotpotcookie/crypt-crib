@@ -1,0 +1,7 @@
+Algabric Structure
+------------------
+bentuknya Group (1 operasi), Ring , dan Field (2 operasi / lebih)
+Group
+- closure : hasil operasi masih dalam anggota group
+
+GCD = 1 == Punya Invers

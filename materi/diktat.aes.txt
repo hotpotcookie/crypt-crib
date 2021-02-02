@@ -1,0 +1,123 @@
+% // tahap 3 = tahap 2 xor decimal nya
+	% // kalau kolom == 1
+	% // a = hex2dec('5d'), a = hex2dec('30')
+	% // === 93, 48
+	% // kalau kolom == 2
+	% // a = hex2dec('d4')
+	% // b = bitshift(a,1,'uint8')
+	% // c = bitxor(b,27)
+	% // === 179
+	% // kalau kolom == 3 di row 1
+	% // a  = hex2dec('bf')
+	% // b1 = bitshift(a,1,'uint8')
+	% // b2 = bitxor(bitxor(b1,27),a)
+	% // === 218
+	% // col1,row1 = 179 xor 218 xor 93 xor 48 == 04 hex
+
+	% // kalau kolom == 1
+	% // a = hex2dec('d4'), a = hex2dec('30')
+	% // === 212, 48
+	% // kalau kolom == 2
+	% // a = hex2dec('bf')
+	% // b = bitshift(a,1,'uint8')
+	% // c = bitxor(b,27)
+	% // === 101
+	% // kalau kolom == 3 di row 2
+	% // a = hex2dec('5d')
+	% // b1 = bitshift(a,1,'uint8')
+	% // b2 = bitxor(b1,a) //tidak xor 27, left-most awal bukan 1
+	% // === 231
+	% // co1,row2 = 212 xor 101 xor 231 xor 48 == 66 hex
+
+	% // kalau kolom == 1
+	% // a = hex2dec('d4'), a = hex2dec('bf')
+	% // === 212, 191
+	% // kalau kolom == 2
+	% // a = hex2dec('5d')
+	% // b = bitshift(a,1,'uint8')
+	% // c = b // left-most awal bukan 1
+	% // === 186
+	% // kalau kolom == 3 di row 3
+	% // a = hex2dec('30')
+	% // b1 = bitshift(a,1,'uint8')
+	% // b2 = bitxor(b1,a) //tidak xor 27, left-most awal bukan 1
+	% // === 80
+	% // co1,ro3 = 212 xor 191 xor 186 xor 80 == 81 hex
+
+	% // kalau kolom == 1
+	% // a = hex2dec('bf'), a = hex2dec('5d')
+	% // === 191, 93
+	% // kalau kolom == 2
+	% // a = hex2dec('30')
+	% // b = bitshift(a,1,'uint8')
+	% // c = b // left-most awal bukan 1
+	% // === 96
+	% // kalau kolom == 3
+	% // a = hex2dec('d4')
+	% // b1 = bitshift(a,1,'uint8')
+	% // b2 = bitxor(bitxor(b1,27),a)
+	% // === 103
+	% // co1,ro4 = 103 xor 191 xor 93 xor 96 == E5 hex
+
+	% // ab(r:c) = {ans} // isi ke array template
+
+	% // kalau kolom == 1
+	% // a = hex2dec('52'), a = hex2dec('ae')
+	% // === 82, 174
+	% // kalau kolom == 2
+	% // a = hex2dec('e0')
+	% // b = bitshift(a,1,'uint8')
+	% // c = bitxor(b,27)
+	% // === 219
+	% // kalau kolom == 3
+	% // a = hex2dec('b4')
+	% // b = bitshift(a,1,'uint8')
+	% // c = bitxor(bitxor(b,27),a)
+	% // === 199
+	% // co2,ro1 = 219 xor 199 xor 82 xor 174 == 
+
+	% // cek left-most 1 atau bukan, if a < 128 // (bin2dec('10000000'))
+	% // kalo kurang, left-most bukan 1, gaperlu bixor 1B / 27
+	
+	invers
+	-------
+	09 : x×09=(((x×2)×2)×2)+x
+	0B : x×11=((((x×2)×2)+x)×2)+x
+	0D : x×13=((((x×2)+x)×2)×2)+x
+	0E : x×14=((((x×2)+x)×2)+x)×2
+	--------
+	a = hex2dec('04') on OE
+	b = bitshift(a,1,'uint8')
+	c = bitxor(b,a)
+	b = bitshift(c,1,'uint8')
+	c = bitxor(b,a)
+	b = bitshift(c,1,'uint8')
+	=== 56
+	a = hex2dec('66') on 0B
+	b = bitshift(a,1,'uint8')
+	b = bitshift(b,1,'uint8')
+	c = bitxor(b,27) //leftmost b awal adalah 1
+	c = bitxor(c,a)
+	b = bitshift(c,1,'uint8')
+	c = bitxor(b,27) //leftmost b awal adalah 1
+	c = bitxor(c,a)	
+	=== 183
+	a = hex2dec('81') on 0D
+	b = bitshift(a,1,'uint8')
+	c = bitxor(b,27) //leftmost b awal adalah 1
+	c = bitxor(c,a)
+	b = bitshift(c,1,'uint8')
+	c = bitxor(b,27) //leftmost b awal adalah 1
+	b = bitshift(c,1,'uint8')
+	c = bitxor(c,a)
+	=== 170
+	a = hex2dec('e5')
+	b = bitshift(a,1,'uint8')	
+	c = bitxor(b,27)
+	b = bitshift(c,1,'uint8')
+	c = bitxor(b,27)
+	b = bitshift(c,1,'uint8')
+	c = bitxor(b,27)
+	c = bitxor(c,a)
+	==== 140
+	56 xor 183 xor 170 xor 140 == A9
