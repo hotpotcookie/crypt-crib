@@ -1,6 +1,9 @@
 addpath('func');
 addpath('func/aes');
+addpath('func/sha');
+addpath('func/rsa');
 addpath('func/classic');
+addpath('func/legacy');
 addpath('materi');
 addpath('materi/Rijndael_Animation_v4_eng');
 addpath('img');
@@ -10,3 +13,4 @@ addpath('etc/aes hilmi');
 addpath('etc/aes hilmi/aes-dec');
 addpath('etc/aes hilmi/aes-enc');
 addpath('etc/aes hilmi/old');
+addpath('asset');
